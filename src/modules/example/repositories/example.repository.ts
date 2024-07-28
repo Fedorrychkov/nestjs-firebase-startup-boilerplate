@@ -78,6 +78,7 @@ export class ExampleRepository {
       id: document.id || getUniqueId(),
       title: document.title,
       text: document.text ?? null,
+      imageUrl: document.imageUrl ?? null,
       isPublished: document.isPublished ?? false,
       createdAt: document.createdAt ?? createdAt,
       updatedAt: newUpdatedAt ? createdAt : (document.updatedAt ?? null),

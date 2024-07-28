@@ -7,6 +7,7 @@ export class ExampleDocument {
   title: string
   text?: string | null
   isPublished: boolean
+  imageUrl?: string | null
   createdAt?: Timestamp | null
   updatedAt?: Timestamp | null
 }

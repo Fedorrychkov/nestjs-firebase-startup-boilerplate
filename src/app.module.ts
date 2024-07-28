@@ -5,7 +5,7 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { getEnvFile } from './env'
 import { ExampleModule } from './modules/example'
-import { FirestoreModule } from './providers'
+import { BucketModule, FirestoreModule } from './providers'
 
 @Module({
   imports: [
@@ -21,6 +21,13 @@ import { FirestoreModule } from './providers'
       inject: [ConfigService],
     }),
     ExampleModule,
+    BucketModule.forRoot({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        keyFilename: configService.get<string>('SA_KEY'),
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

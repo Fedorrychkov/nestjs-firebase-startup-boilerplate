@@ -1,4 +1,22 @@
-import { Body, Controller, Get, NotFoundException, Param, ParseBoolPipe, Patch, Post, Query } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  FileTypeValidator,
+  Get,
+  MaxFileSizeValidator,
+  NotFoundException,
+  Param,
+  ParseBoolPipe,
+  ParseFilePipe,
+  Patch,
+  Post,
+  Query,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { getFileTypesRegexp, IMG_MAX_1MB_SIZE_IN_BYTE, listPngAndJpegImageExt } from 'src/helpers'
+import { storage } from 'src/providers'
 
 import { ExampleRequestBody } from '../dto'
 import { ExampleDocument } from '../entities'
@@ -43,5 +61,22 @@ export class ExampleController {
   @Patch('/publish/:id')
   async togglePublish(@Param('id') id: string): Promise<ExampleDocument> {
     return this.exampleService.togglePublish(id)
+  }
+
+  @Post('/:id/image')
+  @UseInterceptors(FileInterceptor('file', { storage, limits: { files: 1 } }))
+  async updateExampleImage(
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({ maxSize: IMG_MAX_1MB_SIZE_IN_BYTE }),
+          new FileTypeValidator({ fileType: getFileTypesRegexp(listPngAndJpegImageExt) }),
+        ],
+      }),
+    )
+    file: Express.Multer.File,
+    @Param('id') id: string,
+  ): Promise<ExampleDocument> {
+    return this.exampleService.updateImage(id, file)
   }
 }
