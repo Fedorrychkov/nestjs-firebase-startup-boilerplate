@@ -1,6 +1,6 @@
-import { Body, Controller, Get, NotFoundException, Param, Patch, Post, Query } from '@nestjs/common'
+import { Body, Controller, Get, NotFoundException, Param, ParseBoolPipe, Patch, Post, Query } from '@nestjs/common'
 
-import { ExampleFilter, ExampleRequestBody } from '../dto'
+import { ExampleRequestBody } from '../dto'
 import { ExampleDocument } from '../entities'
 import { ExampleService } from '../services'
 
@@ -9,8 +9,8 @@ export class ExampleController {
   constructor(private readonly exampleService: ExampleService) {}
 
   @Get('/')
-  async getList(@Query() query?: ExampleFilter): Promise<ExampleDocument[]> {
-    const response = await this.exampleService.getList(query)
+  async getList(@Query('isPublished', ParseBoolPipe) isPublished?: boolean): Promise<ExampleDocument[]> {
+    const response = await this.exampleService.getList({ isPublished })
 
     if (!response?.length) {
       throw new NotFoundException('Examples are not exist')
@@ -40,7 +40,7 @@ export class ExampleController {
     return this.exampleService.update(id, body)
   }
 
-  @Patch('/:id')
+  @Patch('/publish/:id')
   async togglePublish(@Param('id') id: string): Promise<ExampleDocument> {
     return this.exampleService.togglePublish(id)
   }

@@ -48,7 +48,9 @@ export class ExampleRepository {
 
   async find(filter: ExampleFilter): Promise<ExampleDocument[]> {
     const list: ExampleDocument[] = []
-    const query = this.findGenerator(filter)
+    let query = this.findGenerator(filter)
+
+    query = query.orderBy('createdAt', 'desc')
 
     const snapshot = await query.get()
 
@@ -58,8 +60,8 @@ export class ExampleRepository {
   }
 
   async create(payload: Pick<ExampleDocument, 'title'> & Partial<ExampleDocument>) {
-    const document = await this.collection.doc(payload.id)
     const validPayload = this.getValidProperties(payload)
+    const document = await this.collection.doc(validPayload.id)
     await document.set(validPayload)
 
     return validPayload
