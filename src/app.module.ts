@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { ConfigModule, ConfigService } from '@nestjs/config'
 import { getEnvFile } from './env'
+import { ExampleModule } from './modules/example'
 import { FirestoreModule } from './providers'
 
 @Module({
@@ -19,6 +20,7 @@ import { FirestoreModule } from './providers'
       }),
       inject: [ConfigService],
     }),
+    ExampleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
