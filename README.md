@@ -1,3 +1,25 @@
+# Nestjs Boilerplate
+
+## RU
+Nest.js бэкенд, в котором уже настроены firestore, google cloud storage и показан пример работы и организации модуля для сущности Example, включающей в себя список, флаг публикации и урл изображения. Этот бойлерплейт предназначен для быстрого старта рабочего окружения. На данный момент здесь нет примера CI/CD, и авторизации с Firebase. Эти возможности появятся позже и будут описаны в отдельных статьях.
+
+## EN
+This is a nest js boilerplate with firestore, gcloud connections and example module for fast creation MVP or PET projects.
+
+____
+
+
+# Run
+You can read article about this boilerplate project initialization
+- [RU](http://github.com/Fedorrychkov/Fedorrychkov/articles/nestjs-boilerplate-startup/ARTICLE_RU.md)
+- EN (Soon...)
+
+## Local
+- ```pnpm run start:dev``` - for hot reload application running
+- ```firebase init``` - for firebase-tools creation settings for your firebase project
+
+___
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>

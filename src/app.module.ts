@@ -20,7 +20,6 @@ import { BucketModule, FirestoreModule } from './providers'
       }),
       inject: [ConfigService],
     }),
-    ExampleModule,
     BucketModule.forRoot({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -28,6 +27,7 @@ import { BucketModule, FirestoreModule } from './providers'
       }),
       inject: [ConfigService],
     }),
+    ExampleModule,
   ],
   controllers: [AppController],
   providers: [AppService],
