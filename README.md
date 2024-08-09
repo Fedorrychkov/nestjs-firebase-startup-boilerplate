@@ -13,6 +13,7 @@ ____
 You can read article about this boilerplate project initialization
 - [RU](http://github.com/Fedorrychkov/Fedorrychkov/articles/nestjs-boilerplate-startup/ARTICLE_RU.md)
   - [VC.ru](https://vc.ru/dev/1353099-nestjs-firebase-gcloud-kak-bystro-podnyat-api-backend-na-typescript)
+  - [Habr.ru](https://habr.com/ru/articles/835124/)
 - EN (Soon...)
 
 ## Local
